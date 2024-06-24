@@ -1,29 +1,37 @@
 {
-    "ARTICULO": {
-        "la": [
-            "TXT1-1",
-            "TXT1-3",
-            "TXT1-6"
-        ]
-    },
+    "ARTICULO": {},
     "SUSTANTIVO": {
-        "religión": [
-            "TXT1-2"
+        "Nietzsche": [
+            "TXT1-1"
         ],
-        "ciencia": [
+        "temas": [
             "TXT1-4"
-        ],
-        "tragedia": [
-            "TXT1-7"
         ]
     },
-    "VERBO": {},
-    "ADJETIVO": {},
-    "ADVERBIO": {},
-    "OTROS": {
-        "o": [
+    "VERBO": {
+        "escribió": [
+            "TXT1-2"
+        ]
+    },
+    "ADJETIVO": {
+        "asombrosos": [
+            "TXT1-7"
+        ],
+        "despampanantes": [
+            "TXT1-8"
+        ]
+    },
+    "ADVERBIO": {
+        "varios": [
             "TXT1-5"
         ]
     },
-    "ERROR_LX": {}
+    "OTROS": {
+        "sobre": [
+            "TXT1-3"
+        ],
+        "y": [
+            "TXT1-6"
+        ]
+    }
 }

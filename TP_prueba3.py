@@ -4,9 +4,7 @@ from collections import defaultdict
 
 # Data dictionary structure
 data_dict = {
-    'TOKEN': [],
-    'LEXEMAS': defaultdict(dict),  # Store lexemes as keys
-    'POSICIONES': defaultdict(lambda: defaultdict(list)),  # Nested defaultdict for token positions
+    'POSICIONES': defaultdict(lambda: defaultdict(list)),
     'num_files_processed': 0  # Track number of files processed
 }
 
@@ -24,24 +22,15 @@ predefined_lexemes = {
 # Function to initialize the data dictionary with predefined lexemes
 def initialize_with_lexemes():
     for token, lexemes in predefined_lexemes.items():
-        if token not in data_dict['TOKEN']:
-            data_dict['TOKEN'].append(token)
         for lexeme in lexemes:
-            data_dict['LEXEMAS'][token][lexeme] = True
+            data_dict['POSICIONES'][token][lexeme] = []
 
 # Function to load the existing data dictionary
 def load_data_dict(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             loaded_dict = json.load(file)
-            for token in loaded_dict['TOKEN']:
-                if token not in data_dict['TOKEN']:
-                    data_dict['TOKEN'].append(token)
-                for lexeme in loaded_dict['LEXEMAS'][token]:
-                    data_dict['LEXEMAS'][token][lexeme] = True
-                for lexeme, positions in loaded_dict['POSICIONES'][token].items():
-                    data_dict['POSICIONES'][token][lexeme] = positions
-            data_dict['num_files_processed'] = loaded_dict.get('num_files_processed', 0)
+            data_dict.update(loaded_dict)
             print("Data dictionary loaded successfully.")
             return True
     except FileNotFoundError:
@@ -81,13 +70,12 @@ def tokenize_text(file_path, entry_number):
         text = file.read()
     
     lexemes = re.split(r'\s+|(?<!\d)[.,;:!?](?!\d)', text)
-    output_tokens = []
     found_lexemes = set()
     new_lexemes = set()
     
     posicion = 1
 
-    for index, lexeme in enumerate(lexemes):
+    for lexeme in lexemes:
         lexeme = lexeme.strip()
         if not lexeme:
             continue
@@ -95,9 +83,8 @@ def tokenize_text(file_path, entry_number):
         found_lexemes.add(lexeme)
         token_found = False
         
-        for token in data_dict['TOKEN']:
-            if lexeme in data_dict['LEXEMAS'][token]:
-                output_tokens.append(f'TXT{entry_number}-{posicion}: {token}')
+        for token in data_dict['POSICIONES']:
+            if lexeme in data_dict['POSICIONES'][token]:
                 data_dict['POSICIONES'][token][lexeme].append(f'TXT{entry_number}-{posicion}')
                 token_found = True
                 break
@@ -106,16 +93,14 @@ def tokenize_text(file_path, entry_number):
             new_token = prompt_for_token(lexeme)
             if new_token == 'ERROR_LX':
                 print(f"Lexeme '{lexeme}' identified as lexical error.")
-            if new_token not in data_dict['TOKEN']:
-                data_dict['TOKEN'].append(new_token)
-            data_dict['LEXEMAS'][new_token][lexeme] = True
+            if new_token not in data_dict['POSICIONES']:
+                data_dict['POSICIONES'][new_token] = defaultdict(list)
             data_dict['POSICIONES'][new_token][lexeme].append(f'TXT{entry_number}-{posicion}')
-            output_tokens.append(f'TXT{entry_number}-{posicion}: {new_token}')
             new_lexemes.add(lexeme)
         
         posicion += 1
 
-    return output_tokens, found_lexemes, new_lexemes
+    return found_lexemes, new_lexemes
 
 # Function to save data dictionary to a JSON file
 def save_data_dict(file_path):
@@ -125,11 +110,12 @@ def save_data_dict(file_path):
 
 # Function to generate the output file for the syntactic analyzer
 def generate_output_file(file_path, entry_number):
+    output_data = {
+        token: {lexeme: positions for lexeme, positions in lexemes.items() if any(pos.startswith(f'TXT{entry_number}-') for pos in positions)}
+        for token, lexemes in data_dict['POSICIONES'].items()
+    }
     with open(file_path, 'w', encoding='utf-8') as file:
-        json.dump(
-            {token: {lexeme: positions for lexeme, positions in data_dict['POSICIONES'][token].items() if any(pos.startswith(f'TXT{entry_number}-') for pos in positions)} 
-            for token in data_dict['TOKEN']}, 
-            file, ensure_ascii=False, indent=4)
+        json.dump(output_data, file, ensure_ascii=False, indent=4)
     print("Output file generated successfully.")
 
 # Function to display statistical information
@@ -144,8 +130,8 @@ def display_statistics(found_lexemes, new_lexemes):
     print(f"Unprocessed lexemes: {unprocessed_lexemes} ({(unprocessed_lexemes / total_lexemes) * 100:.2f}%)")
     print("----------------------------------------------------")
 
-    for token in data_dict['TOKEN']:
-        print(f"{token}: {len(data_dict['LEXEMAS'][token])} lexemes")
+    for token in data_dict['POSICIONES']:
+        print(f"{token}: {len(data_dict['POSICIONES'][token])} lexemes")
 
 # Main function to execute the tokenizer
 def main():
@@ -170,7 +156,7 @@ def main():
     entry_number = data_dict['num_files_processed'] + 1  # Increment entry number based on files processed
     output_file = f'output{entry_number}.txt'  # Output file name based on entry number
     
-    output_tokens, found_lexemes, new_lexemes = tokenize_text(input_file, entry_number)
+    found_lexemes, new_lexemes = tokenize_text(input_file, entry_number)
     save_data_dict(data_dict_file)
     generate_output_file(output_file, entry_number)
     display_statistics(found_lexemes, new_lexemes)
