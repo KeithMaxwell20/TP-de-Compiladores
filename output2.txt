@@ -1,0 +1,38 @@
+{
+    "ARTICULO": {},
+    "SUSTANTIVO": {
+        "Nietzsche": [
+            "TXT2-1"
+        ],
+        "temas": [
+            "TXT2-4"
+        ]
+    },
+    "VERBO": {
+        "escribió": [
+            "TXT2-2"
+        ]
+    },
+    "ADJETIVO": {
+        "asombrosos": [
+            "TXT2-7"
+        ],
+        "despampanantes": [
+            "TXT2-8"
+        ]
+    },
+    "ADVERBIO": {
+        "varios": [
+            "TXT2-5"
+        ]
+    },
+    "OTROS": {
+        "sobre": [
+            "TXT2-3"
+        ],
+        "y": [
+            "TXT2-6"
+        ]
+    },
+    "ERROR_LX": {}
+}

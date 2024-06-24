@@ -1,0 +1,29 @@
+{
+    "ARTICULO": {
+        "la": [
+            "TXT1-1",
+            "TXT1-3",
+            "TXT1-6"
+        ]
+    },
+    "SUSTANTIVO": {
+        "religión": [
+            "TXT1-2"
+        ],
+        "ciencia": [
+            "TXT1-4"
+        ],
+        "tragedia": [
+            "TXT1-7"
+        ]
+    },
+    "VERBO": {},
+    "ADJETIVO": {},
+    "ADVERBIO": {},
+    "OTROS": {
+        "o": [
+            "TXT1-5"
+        ]
+    },
+    "ERROR_LX": {}
+}

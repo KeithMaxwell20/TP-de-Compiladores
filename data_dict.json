@@ -1,0 +1,131 @@
+{
+    "TOKEN": [
+        "ARTICULO",
+        "SUSTANTIVO",
+        "VERBO",
+        "ADJETIVO",
+        "ADVERBIO",
+        "OTROS",
+        "ERROR_LX"
+    ],
+    "LEXEMAS": {
+        "ARTICULO": {
+            "el": true,
+            "la": true,
+            "los": true,
+            "las": true,
+            "un": true,
+            "una": true,
+            "unos": true,
+            "unas": true
+        },
+        "SUSTANTIVO": {
+            "Nietzsche": true,
+            "temas": true,
+            "libro": true,
+            "mundo": true,
+            "persona": true,
+            "religión": true,
+            "ciencia": true,
+            "tragedia": true
+        },
+        "VERBO": {
+            "escribir": true,
+            "leer": true,
+            "ser": true,
+            "haber": true,
+            "ir": true,
+            "escribió": true,
+            "escriben": true
+        },
+        "ADJETIVO": {
+            "grande": true,
+            "pequeño": true,
+            "bueno": true,
+            "malo": true,
+            "nuevo": true,
+            "viejo": true,
+            "asombrosos": true,
+            "despampanantes": true
+        },
+        "ADVERBIO": {
+            "rápidamente": true,
+            "lentamente": true,
+            "bien": true,
+            "mal": true,
+            "cerca": true,
+            "lejos": true,
+            "varios": true
+        },
+        "OTROS": {
+            "sobre": true,
+            "con": true,
+            "sin": true,
+            "en": true,
+            "por": true,
+            "para": true,
+            "y": true,
+            "o": true,
+            "a": true,
+            "de": true
+        },
+        "ERROR_LX": {}
+    },
+    "POSICIONES": {
+        "ARTICULO": {
+            "la": [
+                "TXT1-1",
+                "TXT1-3",
+                "TXT1-6"
+            ]
+        },
+        "SUSTANTIVO": {
+            "religión": [
+                "TXT1-2"
+            ],
+            "ciencia": [
+                "TXT1-4"
+            ],
+            "tragedia": [
+                "TXT1-7"
+            ],
+            "Nietzsche": [
+                "TXT2-1"
+            ],
+            "temas": [
+                "TXT2-4"
+            ]
+        },
+        "OTROS": {
+            "o": [
+                "TXT1-5"
+            ],
+            "sobre": [
+                "TXT2-3"
+            ],
+            "y": [
+                "TXT2-6"
+            ]
+        },
+        "VERBO": {
+            "escribió": [
+                "TXT2-2"
+            ]
+        },
+        "ADVERBIO": {
+            "varios": [
+                "TXT2-5"
+            ]
+        },
+        "ADJETIVO": {
+            "asombrosos": [
+                "TXT2-7"
+            ],
+            "despampanantes": [
+                "TXT2-8"
+            ]
+        },
+        "ERROR_LX": {}
+    },
+    "num_files_processed": 2
+}
