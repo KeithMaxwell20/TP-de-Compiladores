@@ -170,9 +170,11 @@ def display_statistics(found_lexemes, new_lexemes, prev_lexemes_count,
     for token in data_dict['POSICIONES']:
         print(f"\n{token}:")
         print(
-            f"  Lexemas antes del procesamiento: {prev_lexemes_count[token]}")
+            f"  Lexemas antes del procesamiento: {prev_lexemes_count.get(token, 0)}"
+        )
         print(
-            f"  Lexemas añadidos en este archivo: {new_lexemes_count[token]}")
+            f"  Lexemas añadidos en este archivo: {new_lexemes_count.get(token, 0)}"
+        )
         print(f"  Total de lexemas: {len(data_dict['POSICIONES'][token])}")
 
 
@@ -217,7 +219,8 @@ def main():
 
     # Contar la cantidad de lexemas después del procesamiento
     new_lexemes_count = {
-        token: len(data_dict['POSICIONES'][token]) - prev_lexemes_count[token]
+        token:
+        len(data_dict['POSICIONES'][token]) - prev_lexemes_count.get(token, 0)
         for token in data_dict['POSICIONES']
     }
 
